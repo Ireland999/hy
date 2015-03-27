@@ -4,7 +4,8 @@
   "dependencies": {
     "angular-route": "~1.3",
     "bootstrap":"3.3.4",
-    "angular-ui-router":"0.2.13"
+    "angular-ui-router":"0.2.13",
+    "requirejs":"2.1.16"
   },
   "overrides": {
     "marked": "lib/marked.js"

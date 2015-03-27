@@ -1,7 +1,7 @@
-<div ng-controller="competitorController" ng-init="load()">
-    <div class="panel">
+<div ng-controller="competitorController" ng-init="vload()">
+    <div class="panel" >
       <div class="panel-heading">大众宝泰医药(现代店)
-        <span><button class="btn btn-xs pull-right" ng-click="">保存</button></span>
+        <span><button class="btn btn-xs pull-right" ui-sref="center.addnewCom" ng-click="">保存</button></span>
       </div>
       <div class="panel-body">
         <form class="form-horizontalb row">
@@ -52,7 +52,7 @@
   <span>{{Clist[0].desc}}
   </span>
   <div>
-    <span><img src="{{Clist[0].pics[0].pic1}}"></span>
+    <span><img ng-src="{{Clist[0].pics[0].pic}}"></span>
     <span><a href="#"><img src="../assets/img/287159_21.jpg"></a></span>
   </div>
   </div>

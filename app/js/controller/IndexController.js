@@ -3,6 +3,7 @@
   IndexController.$inject=['$scope'];
   function IndexController($scope){
   var reload=function(){
+    console.log(99999);
     document.title="哈药业代宝";
      $scope.ite=[{
       title:'哈药业代宝',

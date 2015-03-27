@@ -1,12 +1,29 @@
-<div ng-controller="greetController" class="g">
-  <div class="zhong" style="border:1px solid yellow;width:90%;">
+<div ng-controller="greetController" class="g" ng-init="load(stores)">
+ <div class="zhong">
     <div class="head">
       <span class="ti">附近终端</span>
     </div>
     <div class="ti1">
-      <span><input type="radio"></span>
+      <span ng-repeat="sto in stores">
+        <ul>
+          <li class="fon"><input type="radio" ng-click="check()" name="radiobutton" value="{{sto.name}}"><span></span>{{sto.name}}</li>
+          <li class="fon1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地址:{{sto.address}}</li>
+          <li class="fon2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系人:{{sto.username}}</li>
+          <li class="fon2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话:{{sto.phone}}</li>
+        </ul>
+      </span>
     </div>
   </div>
-  <div class="footer">
+  <div class="pi">
+    <div id="sh" >终端名称：{{aa}}
+    </div>
+    <hr>
+    <div>
+    <span><a href="#"><img class="s" src="../assets/img/111.jpg"></a></span>
+    </div>
+    <div class="footer">
+      <span class="pull-center">保存</span>
+    </div>
   </div>
 </div>
+
