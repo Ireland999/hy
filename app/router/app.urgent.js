@@ -1,17 +1,17 @@
 (function () {
   function config($stateProvider,$urlRouterProvider){
     $urlRouterProvider.otherwise("/");
-    $stateProvider.state('center',{                //竞品界面
-      url:'/',
-      templateUrl:'views/Competitor.html'
-    // }).state('center.Competitor',{              //竞品界面
-    //   url:'Competitor',
-    //    templateUrl:'views/Competitor.html'
+    $stateProvider.state('center',{                //扫一扫
+      url:'/scan',
+      templateUrl:'views/scan.html'
+    }).state('appManager',{              //竞品界面
+      url:'appManager',
+       templateUrl:'views/Competitor.html'
     }).state('center.addactive',{               //操作竞品异动
       url:'addactive',
       templateUrl:'/views/addactive.html'
-    }).state('center.compedetail',{               //竞品调研2页面
-        url:'compedetail',
+    }).state('compedetail',{               //竞品调研2页面
+        url:'compedetail/{IssuedId}',   //工单id
         templateUrl:'/views/compedetail.html'
     }).state('center.weijia',{               //维价页面
         url:'weijia',
@@ -29,14 +29,14 @@
 
 
       //张兰代码
-      }).state('SearchList.SearchResolved',{
+      }).state('SearchList',{
+      url:'/',
+      templateUrl:'views/admin/SearchList.html'  //工单  默认待处理
+     }).state('SearchList.SearchResolved',{
       url:'SearchResolved',
-      templateUrl:'views/admin/SearchResolved.html'
-    }).state('SearchList.SearchPending',{
-      url:'SearchPending',
-      templateUrl:'views/admin/SearchPending.html'
-    }).state('Comproducts',{
-      url:'Comproducts/{DrugstoreName}',
+      templateUrl:'views/admin/SearchResolved.html'// 工单   已处理
+    }).state('Comproducts',{                      //工单中调研竞品
+      url:'Comproducts/{IssuedId}',
       templateUrl:'views/admin/Comproducts.html'
     }).state('ScanInfo',{
       url:'/ScanInfo',

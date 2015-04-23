@@ -55,7 +55,7 @@
     $scope.search=search;
     $scope.choose=choose;
    }
-})()
+})();
 
 // <input type="text" id="box" /><input type="button" value="查询" onclick="search()" />
 // <script>

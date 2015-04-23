@@ -87,7 +87,7 @@
                 
           }
           if($scope.aa!==undefined){
-              $location.path('position');
+              $location.path('position');//页面跳转
           }else{
             var str='未确定终端，请先选择终端';
             var contentcolor='#D51427';
@@ -99,4 +99,4 @@
     $scope.tackphone=tackphone;
     $scope.save=save;
 }
-})()
+})();

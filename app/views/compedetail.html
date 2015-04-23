@@ -1,26 +1,11 @@
-<div ng-controller="competitorController">
-  <div class="jing">
-    <div class="top">
-      <span class="na"> {{"大众宝泰医药(现代店)"}}
-        <span><button class="btn btn-xs pull-right" ui-sref="center.wei_list" ng-click="">保存</button></span>
+<div id="comcollect"ng-controller="competitorController" ng-init="load()">
+  <div class="col-md-12 col-sm-12 col-xs-12 DrugstoreName">
+      <span> {{"大众宝泰医药(现代店)"}}
       </span>
-    </div>
-    <div class="t">
-      <span>竞品名称:</span>&nbsp;&nbsp;<span>{{"所属公司"}}</span><span>&nbsp;&nbsp;{{"竞品名称"}}</span>
-    <hr>
-    <div class="ic">
-      <span class="span1"><img ng-src="../assets/img/s.jpg"></span>
-      <span class="span1"><a href="#"><img src="../assets/img/287159_21.jpg"></a></span>
-    </div>
-    </div>
-    <div class="ty">
-        <p>调研信息(可配)</p>
-        <div class="peizhi">
-        <div>推荐级别：&nbsp;&nbsp;<input type="text" value="{{}}"></div><br>
-        <div>销售单价：&nbsp;&nbsp;<input type="text" value="{{}}"></div><br>
-        <div>政策描述：&nbsp;&nbsp;<textarea placeholder="政策描述"></textarea></div>
-        <div>销售活动：&nbsp;&nbsp;<textarea placeholder="活动描述"></textarea></div>
-        </div>
-    </div>
   </div>
+  <div id="model" style="width:300px;">11111111</div>
+  <div class="btnstyle">
+    <button id="savebutton"class="btn savebutton"  ng-click="SaveComInfo()">保存</button>
+  </div>
+  
 </div>

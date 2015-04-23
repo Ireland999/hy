@@ -2,21 +2,18 @@
   <div class="col-md-12 col-sm-12 col-xs-12 DrugstoreName">
     <span>{{DrugstoreName}}</span>
   </div>
-  <div class="comproinfo">
-    <div class="huanhang"></div>
-    <div class="row" ng-repeat="item in items" >
-      <div class="colxs3" >
-        竞品名称:
-      </div>
-      <div class="colxs7" >
+    <div class="row1" ng-repeat="item in items" >
+      <div class="comcontent" >
         {{item.FactoryName}}
         &nbsp;
        {{item.DrugsName}}
       </div>
-      <div class="colxs2" >
-        <a ui-sref="Comproducts"class="glyphicon glyphicon-menu-right arrowPosition "></a> 
+      <div class=" arrow1">
+        <a ui-sref="compedetail({IssuedId:IssuedId})"class="glyphicon glyphicon-menu-right arrowPosition "></a> 
       </div>
     </div>
-  </div>
-  <button ng-click="ConfigFun()">扫一扫</button>
+     <div id="nomore"></div>
+    <div class="loadmore" ng-click="LoadMore(items[1].ListCount)">
+      更多...
+    </div>
 </div>

@@ -7,12 +7,14 @@
     "requirejs":"2.1.16",
     "bootstrap":"3.3.4",
     "angular-toggle-switch":"1.2.1",
-    "angular-bootstrap-datepicker":"0.3.1"
+    "angular-bootstrap-datepicker":"0.3.1",
+    "jweixin-bower":"1.0.0",
+    "magicsuggest":"2.1.4"
   },
   "overrides": {
     "marked": "lib/marked.js"
   },
   "proxies": {
-    "/api": "http://localhost:8080"
+    "/api": "http://192.168.0.131:8080"
   }
 }

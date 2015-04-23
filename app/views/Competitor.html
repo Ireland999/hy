@@ -1,7 +1,6 @@
-<div ng-controller="competitorController" ng-init="load()" ui-view>
+<div ng-controller="ScanController" ng-init="load69()">
     <div class="panel">
       <div class="panel-heading">{{"大众宝泰医药(现代店)"}}
-        <span><button class="btn btn-xs pull-right" ui-sref="center.addactive"ng-click="">保存</button></span>
       </div>
       <div class="panel-body">
         <!-- <div>
@@ -10,26 +9,59 @@
         </div> -->
         <div class="get">
           <form>
-            <label class="control-label">药品名称：<span class="nam">{{Clist[0].name}}</span></label><br>
-            <label class="control-label">通用名称：<span class="nam">{{Clist[0].commonname}}</span></label>
-            <label class="control-label">&nbsp;&nbsp;规&nbsp;&nbsp;格&nbsp;&nbsp;：<span>{{Clist[0].standard}}</span></label>
-            <label class="control-label">&nbsp;&nbsp;厂&nbsp;&nbsp;商&nbsp;&nbsp;：<span class="nam2">{{Clist[0].firm}}</span></label>
+            <label class="control-label">药品名称：<span class="nam">{{competitorInfo.comp_name}}</span></label><br>
+            <label class="control-label">药品规格：<span>{{competitorInfo.comp_spec}}</span></label><br/>
+            <label class="control-label">生产厂商：<span class="nam2">{{competitorInfo.comp_manufacturer}}</span></label>
           </form>
         </div>
         <br>
+        {{resultstr}}
         <div class="get2">
-          <span>零售价格：<input class="in1" type="text"></span><span>&nbsp;&nbsp;进货价：<input class="in1" type="text"></span><br><br>
-          <span>业务人员：<input class="in1" type="text"></span><span>&nbsp;&nbsp;月销量：<input class="in1" type="text"></span><br><br>
-          <span>操作方式：<select type="text"><option>代理</option><option>维护</option></select></span><span>&nbsp;&nbsp;剂型：<input class="in1" type="text"></span><br><br>
-          <span>推介级别：<input class="in1" type="text"></span>
+          终端零售价：
+          <input class="in1" type="number" ng-model="saleprice">
+          终端进货价：
+            <input class="in1" type="number" ng-model="buyprice">
+            剂&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：
+          <select class="in1" ng-model="selectedsort" ng-options>
+              <option value="1" >散装</option>
+              <option value="2">片剂</option>
+              <option value="3">颗粒剂</option>
+              <option value="4">胶囊剂</option>
+              <option value="5">溶液剂</option>
+              <option value="6">乳液剂</option>
+              <option value="7">混悬剂</option>
+            </select>
+          月&nbsp;&nbsp;&nbsp;销&nbsp;&nbsp;&nbsp;量：
+            <input class="in1" type="number" ng-model="monthsale">
+            是&nbsp;否&nbsp;首&nbsp;推：
+            <select  class="in1" ng-model="istop">
+              <option selected = "selected" >是</option>
+              <option>否</option>
+            </select>
+          操&nbsp;作&nbsp;方&nbsp;式：
+            <select type="text" class="in1" ng-model="isAgent">
+              <option selected = "selected" >代理</option>
+              <option>维护</option>
+            </select>
+            业&nbsp;务&nbsp;人&nbsp;员：
+          <input class="in1" type="text" ng-model="operator">
+          电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：
+          <input class="in1" type="number" ng-model="tel">
+          <h1>{{saleprice}}</h1>
         </div>
       </div>
     </div>
-    <div class="foo">
-      <p>竞品描述:&nbsp;&nbsp;<span>{{Clist[0].desc}}</span></p>
-      <div>
-        <span class="tuu"><img ng-src="{{Clist[0].pics[0].pic1}}"></span>
-        <span class="tuu"><a href="#"><img src="../assets/img/287159_21.jpg"></a></span>
+     <div   class="Policydiv">
+        <textarea placeholder="政策信息" id="Policy"></textarea>
       </div>
+      <div   class="Activitydiv">
+        <textarea placeholder="活动描述" id="Activity"></textarea>
+      </div>
+      <div class="collecting">
+       <img ng-src="{{Clist[0].pics[0].pic1}}"/>{{images}}
+       <img class="uploadimg" src="../assets/img/287159_21.jpg" ng-click="Takephoto()"/>
+      </div>
+    <div class="btnstyle">
+      <button class="btn savebutton" ng-click="SaveCollectInfo()">保存</button>
     </div>
 </div>
