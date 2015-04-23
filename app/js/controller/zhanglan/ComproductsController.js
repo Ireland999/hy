@@ -36,9 +36,9 @@
               console.log(result);
             });
                 $scope.items=[
-                      {FactoryName:'三金药业消渴降糖胶囊消渴降糖胶囊消渴降糖胶囊',DrugsName:'消渴降糖胶囊'},
-                      {FactoryName:'振林药业',DrugsName:'消渴降糖胶囊'},
-                      {FactoryName:'三金药业',DrugsName:'止咳糖浆'}
+                      {IssuedId:1,FactoryName:'三金药业消渴降糖胶囊消渴降糖胶囊消渴降糖胶囊',DrugsName:'消渴降糖胶囊'},
+                      {IssuedId:2,FactoryName:'振林药业',DrugsName:'消渴降糖胶囊'},
+                      {IssuedId:3,FactoryName:'三金药业',DrugsName:'止咳糖浆'}
                    ];
               if(page==(Listcount/pageCount)){
                 var nonore=document.getElementById('nomore');

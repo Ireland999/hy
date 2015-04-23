@@ -1,9 +1,10 @@
 (function(){
   angular.module('app').controller("competitorController",competitorController);
-  competitorController.$inject=['$scope','CompetitorAPI'];
-  function competitorController($scope,CompetitorAPI){
+  competitorController.$inject=['$scope','CompetitorAPI','$stateParams'];
+  function competitorController($scope,CompetitorAPI,$stateParams){
     //修改按钮里面的显示值  保存/修改
      var state=true;
+     sessionStorage.IssuedId=1;
     var load=function(){
       newCom();
     };
@@ -54,27 +55,35 @@
     //保存调研完成的竞品信息
     var SaveComInfo=function(){
       var savebutton=document.getElementById('savebutton');
+      var comcollect=document.getElementById('comcollect');
       if(state==true){
         CompetitorAPI.saveComInfo().then(function(result){
           console.log(result);
         });
         var model=document.getElementById('model');
-        var div=$('<div></div>');
+        var div=$('<div>dddddddddddddddd</div>');
         console.log(model.offsetWidth);
+        var divstyle="width:100px;border:1px solid red;background-color:blue;";
+        div[0].id="fidediv";
         div[0].width=model.offsetWidth;
         div[0].height=model.offsetHeight;
         div[0].top=model.getBoundingClientRect().top;
         div[0].left=model.getBoundingClientRect().left;
         div[0].zIndex=10;
         div[0].backgroundColor="red";
+        div[0].border="1px solid red";
         console.log(div);
-        var comcollect=document.getElementById('comcollect');
+        div.addClass=divstyle;
         $(comcollect).append(div);
+        console.log($(comcollect));
         savebutton.innerHTML="修改";
+        $(savebutton).addClass("btnDefault").removeClass("savebutton");
         state=false;
       }else{
         savebutton.innerHTML="保存";
+        $(savebutton).addClass("savebutton").removeClass("btnDefault");
         state=true;
+        $("#fidediv").remove();
       }
     };
     $scope.load=load;

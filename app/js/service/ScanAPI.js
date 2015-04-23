@@ -5,7 +5,7 @@
     //获取签名
     this.ScanSignature=function(obj){
       var deferred=$q.defer();
-      $http.post('api/weixin/signature',obj)
+      $http.post('api/sign',{url:window.location.href})
       .success(function(result){
         deferred.resolve(result);
       }).error(function(result){

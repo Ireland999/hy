@@ -37,14 +37,14 @@
                   {ListCount:'6'},
                   [
                   {
-                    IssuedId:1,
+                    IssuedId:3,
                     IssuedName:'001单品委员会下达',
                     timestamp:'2015-03-01',
                     IssuedContent:'调研三金药业 消渴降糖胶囊、通化长城药业 消渴降糖胶囊的销售价格和销售活动.调研三金药业 消渴降糖胶囊、通化长城药业 消渴降糖胶囊的销售价格和销售活动.',
                     flag:false,
                     rank:1
                   },
-                  {IssuedId:2,
+                  {IssuedId:4,
                     IssuedName:'001单品委员会下达',
                     timestamp:'2015-03-01',
                     IssuedContent:'调研三金药业 消渴降糖胶囊、通化长城药业 消渴降糖胶囊的销售价格和销售活动.',

@@ -2,7 +2,7 @@
   function config($stateProvider,$urlRouterProvider){
     $urlRouterProvider.otherwise("/");
     $stateProvider.state('center',{                //扫一扫
-      url:'/scan',
+      url:'/',
       templateUrl:'views/scan.html'
     }).state('appManager',{              //竞品界面
       url:'appManager',
@@ -30,7 +30,7 @@
 
       //张兰代码
       }).state('SearchList',{
-      url:'/',
+      url:'/scan',
       templateUrl:'views/admin/SearchList.html'  //工单  默认待处理
      }).state('SearchList.SearchResolved',{
       url:'SearchResolved',

@@ -18,7 +18,7 @@
       console.log(sessionStorage.name);
        wx.config({
           debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-          appId: res.appId, // 必填，公众号的唯一标识
+          appId: 'wxb3c27ef068bf7146', // 必填，公众号的唯一标识
           timestamp:res.timestamp, // 必填，生成签名的时间戳
           nonceStr: res.nonceStr, // 必填，生成签名的随机串
           signature: res.signature,// 必填，签名，见附录1
@@ -33,7 +33,6 @@
      //扫一扫返回69码
      var Scan=function(){
       console.log('调用微信扫一扫接口');
-      alert('nihao');
       wx.scanQRCode({
         needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
         scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
