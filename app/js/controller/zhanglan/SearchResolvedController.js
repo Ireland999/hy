@@ -1,26 +1,38 @@
 (function(){
   angular.module('app').controller("SearchResolvedController",SearchResolvedController);
-  SearchResolvedController.$inject=['$scope','SearchListAPI'];
-  function SearchResolvedController($scope,SearchListAPI){
+  SearchResolvedController.$inject=['$scope','SearchListAPI','$stateParams','UserAPI'];
+  function SearchResolvedController($scope,SearchListAPI,$stateParams,UserAPI){
     //标识是否去后台请求数据true可以请求false不可以请求
       var state=false;
       var page=1;
     //初始化函数
     var SearchResolvedLoad=function(){
       document.title="竞品调研";
-      LoadMore();
+      //加载人员信息
+      var search=location.hash;
+      if(!sessionStorage.userId||sessionStorage.userId==undefined){
+        UserAPI.getUserId(search.split('?')[0]).then(function(result){
+          //返回终端
+          console.log(result);
+          if(result[0]==false)return;
+          LoadMore();
+        });
+      }
     };
     //加载更多的下发工单
     var LoadMore=function(Listcount){
-       console.log(sessionStorage.name);
       var pageCount=2;
       var obj={};
       //每页显示数据
-      obj.pageCount=10;
+      obj.count=pageCount;
       //页码
       obj.page=page;
-      obj.userCode=sessionStorage.userCode;
-
+      //用户id
+      sessionStorage.userCode='785f9ea7-058b-48fe-bc8e-ef647b4ae0c8';
+      obj.user_id=sessionStorage.userCode;
+      //已处理工单标识  0
+      obj.Pending=0;
+      if(obj.Pending!=0)return;
       if(state==true)return;
       state=true;
         var start=parseInt(pageCount)*(parseInt(page-1));
@@ -29,30 +41,31 @@
           if(page>(Listcount/pageCount)){
             return;
           }else{
+            console.log(obj);
             SearchListAPI.SearchResolveList(obj).then(function(result){
               console.log(result);
+              if(result[0]==false)return;
+              $scope.Listcount=result[2];
+              console.log(result[3]);
+              $scope.items=result[3].map(function(data){
+                console.log(data);
+                return {
+                  //下达工单人
+                  IssuedName:data.user_name,
+                  //下达时间
+                  timestamp:data.ts,
+                  //调研内容
+                  IssuedContent:data.comp_list,
+                  //工单id
+                  IssuedId:data.list_id,
+                  //模板id
+                  template_id:data.template_id,
+                  //默认隐藏超出部分内容
+                  flag:false,
+                  len:data.comp_list.length
+                }
+              });
             });
-               $scope.items=[
-                  {DrugstoreName:'大众宝泰医药（现代店）'},
-                  {ListCount:'6'},
-                  [
-                  {
-                    IssuedId:3,
-                    IssuedName:'001单品委员会下达',
-                    timestamp:'2015-03-01',
-                    IssuedContent:'调研三金药业 消渴降糖胶囊、通化长城药业 消渴降糖胶囊的销售价格和销售活动.调研三金药业 消渴降糖胶囊、通化长城药业 消渴降糖胶囊的销售价格和销售活动.',
-                    flag:false,
-                    rank:1
-                  },
-                  {IssuedId:4,
-                    IssuedName:'001单品委员会下达',
-                    timestamp:'2015-03-01',
-                    IssuedContent:'调研三金药业 消渴降糖胶囊、通化长城药业 消渴降糖胶囊的销售价格和销售活动.',
-                    flag:false,
-                    rank:2
-                  }
-                    ]
-                ];
               if(page==(Listcount/pageCount)){
                 var nonore=document.getElementById('nomore');
                 nonore.innerHTML = nonore.innerHTML+'已经是最后了~';

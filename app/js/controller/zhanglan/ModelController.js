@@ -1,53 +1,28 @@
 (function(){
   angular.module('app').controller("ModelController",ModelController);
-  ModelController.$inject=['$scope'];
-  function ModelController($scope){
+  ModelController.$inject=['$scope','ModelAPI'];
+  function ModelController($scope,ModelAPI){
+    var id=1;
+    var state = true;
     var ModelLoad=function(){
-      var box1Div,box2Div,msgDiv,imgs;
-      InputMove();
+      ModelAPI.test().then(function(res){
+        console.log(res);
+      });
     };
-    var InputMove=function(){ 
-      box1Div=document.getElementById('box1');
-      box2Div=document.getElementById('box2');
-      msgDiv=document.getElementById('msg');
-      imgs=document.getElementsByClassName('imgs');
-      console.log(imgs);
-      //阻止系统默认操作
-      box1Div.ondragover=function(e){
-        e.preventDefault();
-      }
-      box2Div.ondragover=function(e){
-        e.preventDefault();
-      }
-      //dataTransfer可以获得拖拽后的信息
-      img1.ondragstart=function(e){
-        e.dataTransfer.setData("imgId","img1");
-      }
-      //调用  拖拽ondrap
-      box1Div.ondrop=dropImghandler;
-      box2Div.ondrop=dropImghandler;
-    };
-    //显示拖拽信息  封装位公共方法
-    var showObj=function(obj){
-      var s="";
-        for(var k in obj){
-          s+=k+":"+obj[k]+"<br/>";
-        }
-        msgDiv.innerHTML=s;
-    };
-    //图片拖拽到任意位置 封装位公共方法
-    var dropImghandler=function(e){
-        showObj(e.dataTransfer);
-        //阻止系统默认操作
-        e.preventDefault();
-        var img=document.getElementById(e.dataTransfer.getData("imgId"));
-        // var img2=document.getElementById(e.dataTransfer.getData("imgId2"));
-        //获取到位置并把图片放到此位置
-        console.log(e.target);
-        e.target.appendChild(img);
-        // e.target.appendChild(img2);
+    var testSession=function(){
+       console.log(11);
+        name=id+'名字';
+        var sessionStorage=[];
+        var data = {};  
+        data['id'] = id;  
+        data['name'] = name;  
+        $scope.testSession=sessionStorage.setItem('data'+id,JSON.stringify(data));
+        var data = JSON.parse(sessionStorage.getItem('data'+id));  
+        console.log(data);
+        id++;
+        console.log(id);
     };
     $scope.ModelLoad=ModelLoad;
-    $scope.InputMove=InputMove;
+    $scope.testSession=testSession;
   }
 })();

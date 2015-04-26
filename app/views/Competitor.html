@@ -1,6 +1,7 @@
-<div ng-controller="ScanController" ng-init="load69()">
+<div ng-controller="ScanController" ng-init="ScanData()">
     <div class="panel">
-      <div class="panel-heading">{{"大众宝泰医药(现代店)"}}
+      <div class="col-md-12 col-sm-12 col-xs-12 DrugstoreName">
+        <span>{{TermnialName}}</span>
       </div>
       <div class="panel-body">
         <!-- <div>
@@ -62,6 +63,6 @@
        <img class="uploadimg" src="../assets/img/287159_21.jpg" ng-click="Takephoto()"/>
       </div>
     <div class="btnstyle">
-      <button class="btn savebutton" ng-click="SaveCollectInfo()">保存</button>
+      <button id="savebutton"class="btn savebutton" ng-click="SaveCollectInfo()">保存</button>
     </div>
 </div>

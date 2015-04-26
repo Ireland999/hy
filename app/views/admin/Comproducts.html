@@ -1,6 +1,6 @@
 <div class="Compro"ng-controller="ComproductsController" ng-init="ComproductsLoad()">
   <div class="col-md-12 col-sm-12 col-xs-12 DrugstoreName">
-    <span>{{DrugstoreName}}</span>
+    <span>{{Termnial_name}}</span>
   </div>
     <div class="row1" ng-repeat="item in items" >
       <div class="comcontent" >
@@ -9,7 +9,7 @@
        {{item.DrugsName}}
       </div>
       <div class=" arrow1">
-        <a ui-sref="compedetail({IssuedId:item.IssuedId})"class="glyphicon glyphicon-menu-right arrowPosition "></a> 
+        <a ui-sref="compedetail({IssuedId:item.CompId})"class="glyphicon glyphicon-menu-right arrowPosition "></a> 
       </div>
     </div>
      <div id="nomore"></div>

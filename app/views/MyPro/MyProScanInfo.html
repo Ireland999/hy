@@ -1,0 +1,25 @@
+<div class="Scaninfo" ng-controller="LogInfoController" ng-init="LogInfoLoad()">
+  <div class="col-md-12 col-sm-12 col-xs-12 DrugstoreName">
+    <span>{{items[0].DrugstoreName}}1111</span>
+  </div>
+  <div class="myP">
+    <span>我品信息：</span>
+  </div>
+    <div class="proinfo">
+      <p>
+         <span>编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</span>
+      </p>
+      <p >
+        <span>商品名称:{{logsinfo[0].ProName}}</span>
+      </p>
+      <p>
+        <span class="">终端对应专营商:{{logsinfo[0].StoreNum}}</span>
+      </p>
+      <p>
+        <span class="">是否串货:{{logsinfo[0].StringPro}}</span>
+      </p>
+    </div>
+    <div class="btnstyle">
+        <button class="btn infobtn" ui-sref="weijia({MyProId:MyProId})">信息维护</button>
+    </div>
+</div

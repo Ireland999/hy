@@ -1,36 +1,37 @@
-<div ng-controller="myproductCtrl" ng-init="load()">
+<div ng-controller="LogInfoController" ng-init="myPro()">
   <div class="panel weijia">
     <div class="panel-heading">{{"大众宝泰医药(现代店)"}}
-        <span><button class="btn btn-xs pull-right" ui-sref="center.greet" ng-click="">保存</button></span>
     </div>
     <!-- <div class="wopin">
         <span class="sa"><a href="#"><img src="../assets/img/sao.png" ng-click=""></a></span>
         <span class="sa p">扫描我品</span>
     </div> -->
     <div class="jiben">
-      <p>存量信息:</p>
       <div>
           <form>
             <label class="control-label nam">药品名称：<span class="nam">{{}}</span></label><br>
-            <label class="control-label nam">通用名称：<span class="nam">{{}}</span></label><br>
             <label class="control-label">&nbsp;&nbsp;规&nbsp;&nbsp;&nbsp;格&nbsp;&nbsp;：<span>{{}}</span></label><br>
             <label class="control-label">终端预计存量：<span>{{}}</span></label><br>
-            <label class="control-label"><span class="shiji">终端实际存量：</span><span><input type="text"></span></label><br>
+            <label class="control-label"><span class="shiji">终端实际存量：</span><span><input id="TerminalStock" type="text"></span></label><br>
           </form>
       </div>
     </div>
     <div class="foo">
-      <p class="mation">维价信息:</p>
        <div class="shuoming">
         <p class="shoujia">全国统一零售价：{{"6元/盒"}}</p>
         <p class="shoujia"> 省区零售价：{{"5元/盒"}}</p>
-        <p class="shou">终端零售价：<span class="shou2"><input type="text">元/盒</span></p><hr>
-          <p>维价说明:</p>
-          <textarea></textarea>
-          <div>
-            <span><a href="#"><img src="../assets/img/nb.jpg"></a></span>
-          </div>
+        <p class="shou">终端零售价：<span class="shou2"><input id="TerminalSalePrice"type="text">元/盒</span></p><hr>
        </div>
+    </div>
+    <div   class="Activitydiv">
+        <textarea placeholder="维价说明" id="Activity"></textarea>
+    </div>
+    <div class="collecting">
+       <img class="imgsrc" ng-src="{{Clist[0].pics[0].pic1}}"/>{{images}}
+       <img class="uploadimg" src="../assets/img/287159_21.jpg" ng-click="Takephoto()"/>
+    </div>
+    <div class="btnstyle">
+        <button class="btn savebutton"  ng-click="SaveTem()">保存</button>
     </div>
   </div>
 </div>

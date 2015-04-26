@@ -2,7 +2,7 @@
   <div  class="col-md-12 col-sm-12 col-xs-12 count">
         <p class="pull-right">共计:{{items[1].ListCount}}条</p>
     </div>
-    <div class="searchcontent" ng-repeat="item in items[2]">
+    <div class="searchcontent" ng-repeat="item in items">
         <div class="row row1">
             <div class="col-md-6 col-sm-6 col-xs-7" >
               <span class="pull-left">{{item.IssuedName}}</span>
@@ -16,11 +16,11 @@
             <p>
               {{item.IssuedContent.substr(0,37)}}
               <span class="getmore"ng-show="{{flag==true}}">{{item.IssuedContent.substr(37)}}</span>
-              <span class="showall"ng-click="ShowAll(item.IssuedId)">阅读全文</span>
+              <span ng-class="'{{item.len}}'>'37'?'ng-hide showall':'showall'"ng-click="ShowAll(item.IssuedId)">阅读全文</span>
             </p>
           </div>
           <div class="col-md-1 col-sm-1  arrow">
-              <a ui-sref="Comproducts({item.IssuedId})"class="glyphicon glyphicon-menu-right arrowPosition "></a> 
+              <a ui-sref="Comproducts({IssuedId:item.IssuedId})"class="glyphicon glyphicon-menu-right arrowPosition "></a> 
           </div>
           <a class="btn btn-small btn-success">已处理
           </a>

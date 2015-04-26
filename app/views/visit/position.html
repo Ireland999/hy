@@ -2,11 +2,11 @@
   <div class="position">
     <div class="search">
       <span>
-        <input id="input" type="text" placeholder="终端定位"><input type="submit" name="submit_button" value="" ng-click="search()" class="tetx">
+        <input id="input" type="search" placeholder="终端定位"><input type="submit" name="submit_button" value="" ng-click="search()" class="tetx">
         <div id="rad">
         <ul>
           <li ng-repeat="li in list">
-            <input type="radio" name="radiobutton"  ng-click="choose()" value="{{li.name}}">
+            <input type="radio" name="radiobutton"  ng-click="choose()" value="{{li.TemId}}">
             <span>{{li.name}}</span>
           </li><br>
           <!-- <li><input type="radio" name="radiobutton" ng-click="choose()">&nbsp;&nbsp;lllll</li>
@@ -16,19 +16,23 @@
        </span>
     </div>
     <div class="wei">
-      <p class="duan">终端：{{mm}}</p>
+      <p class="duan">终端：
+        <span id="temname">
+        </span>
+    </p>
       <div class="jingwei">
         <div class="jing1">经<br><br>纬<br><br>度<br></div>
-        <span class="getzhi">{{"N45°58′18.88″"}}</span>
-        <span class="getzhi2">{{"E126°28′37.45″"}}</span>
+        <span id="latitude"class="getzhi"></span>
+        <span id="longitude"class="getzhi2"></span>
       </div>
       <div class="addre">
         <div class="ad"><br>地<br><br><br>址<br><br></div>
-        <span class="addre2">{{"黑龙江省哈尔滨市松北区创新一路"}}</span>
+        <span id="address"class="addre2"></span>
       </div>
     </div>
-    <div class="footer">
-      <span><button>确认</button><button>取消</button></span>
+    <div class="btnstyle">
+        <button class="btn rebtn" ng-click="SaveTem()">确认</button>
+        <!-- <button ng-click="cancel()">取消</button> -->
     </div>
   </div>
 </div>

@@ -1,10 +1,9 @@
 (function(){
   angular.module('app').controller("competitorController",competitorController);
-  competitorController.$inject=['$scope','CompetitorAPI','$stateParams'];
-  function competitorController($scope,CompetitorAPI,$stateParams){
+  competitorController.$inject=['$scope','SearchListAPI','$stateParams'];
+  function competitorController($scope,SearchListAPI,$stateParams){
     //修改按钮里面的显示值  保存/修改
      var state=true;
-     sessionStorage.IssuedId=1;
     var load=function(){
       newCom();
     };
@@ -54,36 +53,45 @@
    
     //保存调研完成的竞品信息
     var SaveComInfo=function(){
+      var obj={};
+      var obj1={};
       var savebutton=document.getElementById('savebutton');
       var comcollect=document.getElementById('comcollect');
+      //state=true时保存信息  state=false时不允许编辑
       if(state==true){
-        CompetitorAPI.saveComInfo().then(function(result){
+        SearchListAPI.saveComInfo(obj).then(function(result){
           console.log(result);
+          //保存失败直接返回
+          if(result[0]==false)return;
+          //背景div 
+          sWidth = document.body.offsetWidth;    
+          sHeight = document.body.offsetHeight;   
+          var bgObj=document.createElement("div");    
+          bgObj.setAttribute('id','alertbgDiv');    
+          bgObj.style.position="absolute";    
+          bgObj.style.top="0";    
+          bgObj.style.background="silver";    
+          bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=90,finishOpacity=95";    
+          bgObj.style.opacity="0.3";    
+          bgObj.style.left="0";    
+          bgObj.style.width = sWidth + "px";    
+          bgObj.style.height = (sHeight-30) + "px";    
+          bgObj.style.zIndex = "10000";    
+          document.body.appendChild(bgObj);    
+          savebutton.innerHTML="修改";
+          $(savebutton).addClass("btnDefault").removeClass("savebutton");
+          var btnstyle=document.getElementsByClassName('btnstyle');
+          state=false;
+          obj1.comp_id=$stateParams.CompId;
+          obj1.flag=1;
+          //存在sessionStorage中来修改竞品列表中的颜色
+          sessionStorage.obj=JSON.stringify(obj1);
         });
-        var model=document.getElementById('model');
-        var div=$('<div>dddddddddddddddd</div>');
-        console.log(model.offsetWidth);
-        var divstyle="width:100px;border:1px solid red;background-color:blue;";
-        div[0].id="fidediv";
-        div[0].width=model.offsetWidth;
-        div[0].height=model.offsetHeight;
-        div[0].top=model.getBoundingClientRect().top;
-        div[0].left=model.getBoundingClientRect().left;
-        div[0].zIndex=10;
-        div[0].backgroundColor="red";
-        div[0].border="1px solid red";
-        console.log(div);
-        div.addClass=divstyle;
-        $(comcollect).append(div);
-        console.log($(comcollect));
-        savebutton.innerHTML="修改";
-        $(savebutton).addClass("btnDefault").removeClass("savebutton");
-        state=false;
       }else{
         savebutton.innerHTML="保存";
         $(savebutton).addClass("savebutton").removeClass("btnDefault");
         state=true;
-        $("#fidediv").remove();
+        $("#alertbgDiv").remove();
       }
     };
     $scope.load=load;

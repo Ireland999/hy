@@ -4,8 +4,9 @@
       <span class="ti">附近终端</span>
     </div>
     <div class="ti1">
+      {{href}}
       <div ng-repeat="list in Slist">
-        <span><input type="radio" name="radiobutton" ng-click="store()" value="{{list.name}}"><img src="../assets/img/redmarke.png"></span>
+        <span><input type="radio" name="radiobutton" ng-click="radiochoose()" value="{{list.Termnial_id}}"><img src="../assets/img/redmarke.png"></span>
         <span class="i1">{{list.name}}</span>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="i2">地址:{{list.address}}</span>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="i2">联系人:{{list.contact}}</span>
@@ -16,18 +17,18 @@
   <div class="zhong2">
     <div class="footer">
       <div class="mid">
-        <span id="sto" class="mid2">终端名称：<span>{{aa}}</span></span>
+        <span id="sto" class="mid2"><span id="termnailname"></span></span>
       </div>
       <hr>
       <div class="f2">
-        <span ng-click="tackphone()"><img src="../assets/img/111.jpg"></span>
+        <span ng-click="ScanSignature()"><img src="../assets/img/111.jpg"></span>
         <!-- <span><a href="https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wxa2185a2142b1e98f&corpsecret=G8ZcwvAbFzcQzlzm8pkO8gDHZUizMfDvX1BZoZlUcDt5ohCA-Kn2eUB6Vu7poEr0">cxvxv</a>
           <a target="_blank" href="https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=dLIVTQEegLP22OJY9AEXKt99p_LrA1Qwr-BA7S7P4DW32SVU0-4PjwihtWWzyEd3">bbbb</a></span>
    --> 
       </div>
     </div>
-    <div class="bo">
-      <a id="save" ng-click="save()">保存</a>
+    <div class="btnstyle">
+      <button id="savebutton" class="btn savebutton"ng-click="save()">保存</button>
     </div>
   </div>
 </div>

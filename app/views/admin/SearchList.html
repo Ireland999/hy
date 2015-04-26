@@ -1,8 +1,8 @@
 
 <div ng-controller="SearchListController" ng-init="SearchListLoad()" >
   <div class="col-md-12 col-sm-12 col-xs-12 DrugstoreName">
-    <span>{{TerminalName}}</span>
-    <p class="glyphicon glyphicon-th-list pull-right " data-toggle="dropdown" aria-expanded="false"></p>
+    <span>{{terminal_name}}</span>
+    <p class="glyphicon glyphicon-th-list pull-right" data-toggle="dropdown" aria-expanded="false"></p>
       <ul class="dropdown-menu pull-right listmore">
         <li >
           <a ui-sref="SearchList">
@@ -35,7 +35,7 @@
                   <p>
                     {{item.IssuedContent.substr(0,37)}}
                     <span class="getmore"ng-show="{{flag==true}}">{{item.IssuedContent.substr(37)}}</span>
-                    <span class="showall"ng-click="ShowAll(item.IssuedId)">阅读全文</span>
+                    <span ng-class="'{{item.len}}'>'37'?'ng-hide showall':'showall'"ng-click="ShowAll(item.IssuedId)">阅读全文</span>
                   </p>
                 </div>
                 <div class="col-md-1 col-sm-1  arrow">

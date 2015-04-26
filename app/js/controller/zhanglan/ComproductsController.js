@@ -1,22 +1,43 @@
 (function(){
   angular.module('app').controller("ComproductsController",ComproductsController);
-  ComproductsController.$inject=['$scope','$stateParams','CompAPI'];
-  function ComproductsController($scope,$stateParams,CompAPI){
+  ComproductsController.$inject=['$scope','$stateParams','SearchListAPI','UserAPI'];
+  function ComproductsController($scope,$stateParams,SearchListAPI,UserAPI){
     //标识是否去后台请求数据true可以请求false不可以请求
       var state=false;
       var page=1;
     //初始化函数
     var ComproductsLoad=function(){
       document.title="竞品调研";
-      LoadMore();
+      if(sessionStorage.obj==undefined)return;
+      var obj=sessionStorage.obj;
+      var row1=document.getElementsByClassName('row1');
+      for(var i=0;i<sessionStorage.obj.length;i++){
+        if(sessionStorage.obj.comp_id==$scope.items[i].comp_id){
+          // $(row1).addClass('')
+        }
+      }
+      //加载人员信息
+      
+      var search=location.hash;
+      if(!sessionStorage.userId||sessionStorage.userId==undefined){
+        UserAPI.getUserId(search.split('?')[0]).then(function(result){
+          //返回终端
+          console.log(result);
+          if(result[0]==false)return;
+          //终端名称
+          $scope.Termnial_name=Termnial_name;
+          LoadMore();
+        });
+      }
+      
       console.log($stateParams);
     };
     //工单里的竞品
     var LoadMore=function(Listcount){
-      var pageCount=2;
+      var pageCount=10;
       var obj={};
       //每页显示数据
-      obj.pageCount=10;
+      obj.count=pageCount;
       //页码
       obj.page=page;
       //员工号
@@ -32,21 +53,26 @@
           if(page>(Listcount/pageCount)){
             return;
           }else{
-            CompAPI.CompList(obj).then(function(result){
+            SearchListAPI.CompList(obj).then(function(result){
               console.log(result);
+              $scope.items=result[2].map(function(data){
+                return {
+                  //竞品id
+                  CompId:data.CompId,
+                  //竞品生产厂商
+                  FactoryName:data.FactoryName,
+                  //竞品名称
+                  DrugsName:data.DrugsName
+                }
+              })
             });
-                $scope.items=[
-                      {IssuedId:1,FactoryName:'三金药业消渴降糖胶囊消渴降糖胶囊消渴降糖胶囊',DrugsName:'消渴降糖胶囊'},
-                      {IssuedId:2,FactoryName:'振林药业',DrugsName:'消渴降糖胶囊'},
-                      {IssuedId:3,FactoryName:'三金药业',DrugsName:'止咳糖浆'}
-                   ];
-              if(page==(Listcount/pageCount)){
-                var nonore=document.getElementById('nomore');
-                nonore.innerHTML = nonore.innerHTML+'已经是最后了~';
-                var LoadMore=document.getElementsByClassName('loadmore');
-                console.log(LoadMore);
-                LoadMore[0].innerHTML="";
-              }
+            if(page==(Listcount/pageCount)){
+              var nonore=document.getElementById('nomore');
+              nonore.innerHTML = nonore.innerHTML+'已经是最后了~';
+              var LoadMore=document.getElementsByClassName('loadmore');
+              console.log(LoadMore);
+              LoadMore[0].innerHTML="";
+            }
           }
         page ++;
         state = false
