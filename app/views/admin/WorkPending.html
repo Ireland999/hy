@@ -2,14 +2,15 @@
       <p class="pull-right">共计:{{Orders[0].ListCount}}条</p>
  </div>
 <div class="content" ng-repeat="item in Orders[1]">
-  <div class="row row2">
+  <div class="row row2 wroklistcontent">
     <div class="col-md-11 col-sm-11 col-xs-12" >
       <p>
-        {{item.rank}}:{{item.IssuedContent}}
-        <span class="" ng-click="ShowAll(item.IssuedId)">阅读全文</span>
+         {{item.IssuedContent.substr(0,37)}}
+         <span class="getmore"ng-show="{{flag==true}}">{{item.IssuedContent.substr(37)}}</span>
       </p>
     </div>
      <a class="btn btn-small btn-danger" >待处理
      </a>
+     <span class="showall worklistshow"ng-click="ShowAll(item.IssuedId)">阅读全文</span>
   </div> 
 </div>

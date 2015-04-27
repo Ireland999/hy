@@ -6,7 +6,7 @@
      var state=true;
     var load=function(){
       $scope.Slist=[{
-        Termnial_id:1,
+        Termnial_id:'A',
         name:'新药特药人民药店(地段街店)',
         address:'地段街125号',
         contact:'黄经理',
@@ -39,10 +39,11 @@
         //获取用户userId
         UserAPI.getUserId(search.split('?')[0]).then(function(result){
           console.log(result);
+          $socpe.UserId=result.UserId;
           //将用户id存到session中
-          sessionStorage.userId=result.userId;
+          sessionStorage.UserId=result.UserId;
            //根据用户和当前地理位置查询附近终端
-          GreetAPI.chooseTermnial({userId:result.userId}).then(function(res){
+          GreetAPI.chooseTermnial({UserId:result.UserId}).then(function(res){
             console.log(res);
           });
         });
@@ -70,17 +71,23 @@
     };
 //点击拍照或者上传图片
     var takephoto=function(){
+      $scope.imgList=[];
       wx.chooseImage({
           success: function (res) {
-              $scope.localIds=res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-              if($scope.localIds.length>3)return alert('选择图片不能多于三张');
-              wx.uploadImage({
-                  localId: $scope.localIds, // 需要上传的图片的本地ID，由chooseImage接口获得
-                  isShowProgressTips: 1, // 默认为1，显示进度提示
-                  success: function (res) {
-                      $scope.serverId= res.serverId; // 返回图片的服务器端ID
-                  }
+              var localIds=res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+              if(localIds.length>3)return alert('选择图片不能多于三张');
+              $scope.localIds=localIds;
+              angular.forEach(localIds,function(localId){
+                wx.uploadImage({
+                    localId:localId, // 需要上传的图片的本地ID，由chooseImage接口获得
+                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                    success: function (res) {
+                       var serverId= res.serverId; // 返回图片的服务器端ID
+                       $scope.imgList.push(serverId);
+                    }
+                });
               });
+              
           }
       });
     };
@@ -104,12 +111,14 @@
     };
     //保存选择的终端
     var save=function(){
+      console.log($scope.Termnial_id);
       var obj={};
       obj.Termnial_id=$scope.Termnial_id;
       console.log(obj.Termnial_id);
       if(obj.Termnial_id==undefined)return Prompt("你还没有选择终端","red");
       // $location.path('position');//页面跳转
-      obj.Termnial_img=$scope.serverId;
+      //图片
+      obj.serverIds=$scope.imgList;
       if(state==true){
           GreetAPI.chooseTermnial(obj).then(function(result){
             console.log(result);
@@ -142,9 +151,17 @@
         $("#alertbgDiv").remove();
       }
     };
+    var test=function(){
+      $scope.testlist=[];
+      var testdata=['1','2','3','4'];
+      angular.forEach(testdata,function(data){
+        $scope.testlist.push(data);
+      })
+    };
     $scope.load=load;
     $scope.radiochoose=radiochoose;
     $scope.ScanSignature=ScanSignature;
     $scope.save=save;
+    $scope.test=test;
 }
 })();

@@ -1,19 +1,60 @@
 @media screen and (max-width:768px){
+/*工单样式*/
 .WorkList{
-    margin:0;
-    padding:0;
+width:100%;
+    /*切换待办和计划样式*/
     .togglep{
+       height:55px;
+       margin-top:5px;
       .toggle{
           border-radius:15px;
           height:25px;
           width:20px;      
         }
+        
+        .listlist{
+          color:blue;
+          top:-45px;
+          left:220px;
+          z-index:100;
+          font-size:1.2em;
+        }
+        .listmenu{
+          top:40px;
+          left:130px;
+          margin:0;
+          padding:0;
+          width:30%;
+          li{
+            border-bottom:1px solid silver;
+          }
+          .glyphicon-bell{
+            color:red;
+          }
+          .glyphicon-flag{
+            color:green;
+          }
+        }
     }
-      
+  
   .listviews{
     .count1{
-      margin-top:-40px;
-      z-index:-1;
+      margin-top:-20px;
+      width:100%;
+    }
+  }
+  .row2{
+    background-color:white;
+    border-bottom:1px solid silver;
+  }
+  .wroklistcontent{
+    padding:0 8px;
+    p{
+      margin:0 2%;
+    }
+    .worklistshow{
+    margin-left:35%;
+    color:blue;
     }
   }
 }

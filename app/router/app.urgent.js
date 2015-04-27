@@ -33,7 +33,7 @@
 
       //张兰代码
       }).state('SearchList',{
-      url:'/',
+      url:'/greet',
       templateUrl:'views/admin/SearchList.html'  //工单  默认待处理
      }).state('SearchList.SearchResolved',{
       url:'SearchResolved',

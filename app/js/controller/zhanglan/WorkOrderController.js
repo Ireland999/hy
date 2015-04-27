@@ -3,7 +3,7 @@
   WorkOrderController.$inject=['$scope'];
   function WorkOrderController($scope){
     var WorkOrderLoad=function(){
-      document.title="工单";
+      document.title="拜访工单";
       var remark=0;
       var switchStatus=false;
       switchFunction(remark,switchStatus);
