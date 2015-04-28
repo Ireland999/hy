@@ -5,7 +5,7 @@
   <div class="row row2 wroklistcontent">
     <div class="col-md-11 col-sm-11 col-xs-12" >
       <p>
-         {{item.IssuedContent.substr(0,37)}}
+         {{item.rank}}:{{item.IssuedContent.substr(0,37)}}
          <span class="getmore"ng-show="{{flag==true}}">{{item.IssuedContent.substr(37)}}</span>
       </p>
     </div>

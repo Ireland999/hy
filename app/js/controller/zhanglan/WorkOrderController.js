@@ -17,6 +17,7 @@
     var PendingClick=function(remark,switchStatus){
       console.log(remark);
       console.log(switchStatus);
+      //false待办rue计划0未处理 1已处理
       if(switchStatus==false && remark==0){
         $scope.Orders=[
                       {

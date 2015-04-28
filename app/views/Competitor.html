@@ -23,8 +23,8 @@
           终端进货价：
             <input class="in1" type="number" ng-model="buyprice">
             剂&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：
-          <select class="in1" ng-model="selectedsort" ng-options>
-              <option value="1" >散装</option>
+          <select class="in1 pill" >
+              <option value="1" select="selected" >散装</option>
               <option value="2">片剂</option>
               <option value="3">颗粒剂</option>
               <option value="4">胶囊剂</option>
@@ -35,20 +35,19 @@
           月&nbsp;&nbsp;&nbsp;销&nbsp;&nbsp;&nbsp;量：
             <input class="in1" type="number" ng-model="monthsale">
             是&nbsp;否&nbsp;首&nbsp;推：
-            <select  class="in1" ng-model="istop">
+            <select  class="in1 istop" >
               <option selected = "selected" >是</option>
               <option>否</option>
             </select>
           操&nbsp;作&nbsp;方&nbsp;式：
-            <select type="text" class="in1" ng-model="isAgent">
+            <select type="text" class="in1 isAgent" >
               <option selected = "selected" >代理</option>
               <option>维护</option>
             </select>
             业&nbsp;务&nbsp;人&nbsp;员：
           <input class="in1" type="text" ng-model="operator">
           电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：
-          <input class="in1" type="number" ng-model="tel">
-          <h1>{{saleprice}}</h1>
+          <input class="in1" type="tel" ng-model="number">
         </div>
       </div>
     </div>
@@ -65,4 +64,5 @@
     <div class="btnstyle">
       <button id="savebutton"class="btn savebutton" ng-click="SaveCollectInfo()">保存</button>
     </div>
+    <test data-source="/raw/test.json"></test>
 </div>

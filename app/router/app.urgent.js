@@ -20,10 +20,10 @@
     url:'/wei_list',
     templateUrl:'/views/wei_list.html'
     }).state('greet',{                 //打招呼定位附近终端
-      url:'/',
+      url:'/greet',
       templateUrl:'views/visit/greet.html'
     }).state('admin',{                 //打招呼定位附近终端
-      url:'/admin',
+      url:'/',
       templateUrl:'views/admin.html'
     }).state('position',{                 //定位确定终端
       url:'/position',
@@ -33,7 +33,7 @@
 
       //张兰代码
       }).state('SearchList',{
-      url:'/greet',
+      url:'/SearchList',
       templateUrl:'views/admin/SearchList.html'  //工单  默认待处理
      }).state('SearchList.SearchResolved',{
       url:'SearchResolved',
@@ -51,10 +51,10 @@
       url:'/WorkOrder',
       templateUrl:'views/admin/WorkOrder.html'
     }).state('WorkOrder.WorkPending',{
-      url:'/WorkPending',
+      url:'WorkPending',
       templateUrl:'views/admin/WorkPending.html'
     }).state('WorkOrder.WorkResolve',{
-      url:'/WorkResolved',
+      url:'WorkResolved',
       templateUrl:'views/admin/WorkResolve.html'
     }).state('VisitPlan',{
       url:'/VisitPlan',

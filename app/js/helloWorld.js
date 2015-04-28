@@ -1,11 +1,14 @@
 (function(){
-  angular.module('app').directive("helloWorld",helloWorld);
-  function helloWorld(){
+  angular.module('app').directive('test',Test);
+  Test.$inject=['TestAPI'];
+  function Test(TestAPI){
     return {
-      scope: {},  // use a new isolated scope
-      restrict: 'AE',
-      replace: 'true',
-      template: '<h3>Hello World!!</h3>'
+      template: [
+        '<select>',
+          '<option ng-repeat="item in items">{{item}}</option>',
+        '</option>'
+      ].join(''),
+      test: TestAPI.test
     };
   }
 })();

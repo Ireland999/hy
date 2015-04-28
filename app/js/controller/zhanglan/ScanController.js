@@ -60,6 +60,8 @@
     };
     //请求后台检测是新竞品还是竞品异动并返回药品信息
     var ScanData=function(){
+      console.log(document.getElementsByClassName('in1'));
+      console.log($scope.selectedsort);
       ScanAPI.scanVerify({comp_code:sessionStorage.comp_code}).then(function(result){
         console.log(result);
         $scope.competitorInfo=result[2].map(function(data){
@@ -89,80 +91,79 @@
       //保存按钮
       var savebutton=document.getElementById('savebutton');
       var comcollect=document.getElementById('comcollect');
+      //药品剂型
+      console.log($('.pill option:selected') .val());
       if(state==true){
-          if($scope.tel!==undefined&&
-              $scope.saleprice!==undefined&&
-              $scope.buyprice!==undefined&&
-              $scope.istop!==undefined&&
-              $scope.isAgent!==undefined&&
-              $scope.operator!==undefined&&
-              $scope.selectedsort!==undefined){
-                if(!regMobile.test($scope.tel)){
-                  alert("手机或者电话有误！");
-                }else if(!reg.test($scope.saleprice)){
-                  alert('价格不是数字');
-                }else if(!reg.test($scope.buyprice)){
-                  alert('价格不是数字');
-                }else{
-                  //电话
-                  obj.phone=$scope.tel
-                  //售价
-                  obj.comp_sell=$scope.saleprice;
-                  //进价
-                  obj.comp_buy=$scope.buyprice;
-                  //推介级别 ---是否首推
-                  obj.comp_level=$scope.istop;
-                  //操作方式---
-                  obj.comp_way=$scope.isAgent;
-                  //业务作员
-                  obj.salesman=$scope.operator;
-                  //竞品剂型
-                  obj.comp_dosageforms=$scope.selectedsort;
-                  //活动描述
-                  obj.comp_describe=Activity[0].value;
-                  //政策信息
-                  obj.policyinfo=Policy[0].value;
-                  //竞品编码
-                  obj.comp_code=$scope.competitorInfo.comp_code;
-                  //竞品名称
-                  obj.comp_name=$scope.competitorInfo.comp_name;
-                  //竞品规格
-                  obj.comp_spec=$scope.competitorInfo.comp_spec;
-                  //竞品生产厂商
-                  obj.comp_manufacturer=$scope.competitorInfo.comp_manufacturer;
-                  //采集人员id
-                  obj.manager_id='1';
-                  //省区id
-                  obj.district_id='1';
-                  //终端id
-                  obj.terminal_id='1';
-                  console.log(obj);
-                  ScanAPI.saveCollectInfo(obj).then(function(result){
-                    console.log(result);
-                    alert(result[0]);
-                  });
-                }
-                //背景div 
-              sWidth = document.body.offsetWidth;    
-              sHeight = document.body.offsetHeight;   
-              var bgObj=document.createElement("div");    
-              bgObj.setAttribute('id','alertbgDiv');    
-              bgObj.style.position="absolute";    
-              bgObj.style.top="0";    
-              bgObj.style.background="silver";    
-              bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=90,finishOpacity=95";    
-              bgObj.style.opacity="0.3";    
-              bgObj.style.left="0";    
-              bgObj.style.width = sWidth + "px";    
-              bgObj.style.height = (sHeight-30) + "px";    
-              bgObj.style.zIndex = "10000";    
-              document.body.appendChild(bgObj);    
-              savebutton.innerHTML="修改";
-              $(savebutton).addClass("btnDefault").removeClass("savebutton");
-              var btnstyle=document.getElementsByClassName('btnstyle');
-              state=false;
+        if($scope.tel==undefined||
+              $scope.saleprice==undefined||
+              $scope.buyprice==undefined||
+              $scope.operator==undefined)return Prompt("信息填写不完整，检查后重新提交!","red");
+            if(!regMobile.test($scope.tel)){
+              alert("手机或者电话有误！");
+            }else if(!reg.test($scope.saleprice)){
+              alert('价格不是数字');
+            }else if(!reg.test($scope.buyprice)){
+              alert('价格不是数字');
             }else{
-              alert('信息填写不完整，检查后重新提交!');
+              //电话
+              obj.phone=$scope.tel
+              //售价
+              obj.comp_sell=$scope.saleprice;
+              //进价
+              obj.comp_buy=$scope.buyprice;
+              //推介级别 ---是否首推
+              obj.comp_level=$('.istop option:selected').val();
+              //操作方式---
+              obj.comp_way=$('.isAgent option:selected').val();
+              //业务作员
+              obj.salesman=$scope.operator;
+              //竞品剂型
+              obj.comp_dosageforms=$('.pill option:selected') .val();
+              //活动描述
+              obj.comp_describe=Activity[0].value;
+              //政策信息
+              obj.policyinfo=Policy[0].value;
+              //竞品编码
+              var competitorInfo=$scope.competitorInfo;
+              obj.comp_code=competitorInfo.comp_code;
+              //竞品名称
+              obj.comp_name=competitorInfo.comp_name;
+              //竞品规格
+              obj.comp_spec=competitorInfo.comp_spec;
+              //竞品生产厂商
+              obj.comp_manufacturer=competitorInfo.comp_manufacturer;
+              //采集人员id
+              obj.manager_id='1';
+              //省区id
+              obj.district_id='1';
+              //终端id
+              obj.terminal_id='1';
+              console.log(obj);
+              ScanAPI.saveCollectInfo(obj).then(function(result){
+                console.log(result);
+                //保存成功之后将保存按钮变成修改并把内容变成不可编辑状态
+                if(result[0]==true){
+                    //背景div 
+                    sWidth = document.body.offsetWidth;    
+                    sHeight = document.body.offsetHeight;   
+                    var bgObj=document.createElement("div");    
+                    bgObj.setAttribute('id','alertbgDiv');    
+                    bgObj.style.position="absolute";    
+                    bgObj.style.top="0";    
+                    bgObj.style.background="silver";    
+                    bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=90,finishOpacity=95";    
+                    bgObj.style.opacity="0.3";    
+                    bgObj.style.left="0";    
+                    bgObj.style.width = sWidth + "px";    
+                    bgObj.style.height = (sHeight-30) + "px";    
+                    bgObj.style.zIndex = "10000";    
+                    document.body.appendChild(bgObj);    
+                    savebutton.innerHTML="修改";
+                    $(savebutton).addClass("btnDefault").removeClass("savebutton");
+                    var btnstyle=document.getElementsByClassName('btnstyle');
+                    state=false;
+                }
+              });
             }
         
       }else{
