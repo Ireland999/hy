@@ -5,7 +5,7 @@
     //判断是否可以编辑文本框内内容
     var state=true;
     var ScanLoad=function(){
-     //  $("#alertbgDiv").remove();
+      $("#alertbgDiv").remove();
      // //加载人员信息
       var search=location.hash;
       if(!sessionStorage.userId||sessionStorage.userId==undefined){
@@ -14,10 +14,10 @@
           sessionStorage.UserId=result.UserId;
           //返回终端
           console.log(result);
-          PositionAPI.GetTermnial().then(function(res){
-            console.log(res);
-            
-            if($scope.Termnial_name==""||$scope.Termnial_name==null)return Prompt("你还没有进行终端定位","red");
+          PositionAPI.getTermnial().then(function(res){
+            res = eval('(' + res + ')');
+            $scope.res=res;
+            if(res.name==""||res.name==null)return Prompt("你还没有进行终端定位","red");
             $scope.Termnial_name=res.name;
             //微信扫一扫
             GainSignature();
@@ -28,8 +28,8 @@
         PositionAPI.GetTermnial().then(function(res){
             console.log(res);
             
-            if($scope.Termnial_name==""||$scope.Termnial_name==null)return Prompt("你还没有进行终端定位","red");
-            $scope.Termnial_name=res.name;
+            if($scope.res.name==""||$scope.res.name==null)return Prompt("你还没有进行终端定位","red");
+            $scope.Termnial_name=$scope.res.name;
             //微信扫一扫
             GainSignature();
           });
@@ -37,7 +37,7 @@
     };
     //去后台请求拿到签名
     var GainSignature=function(){
-      ScanAPI.ScanSignature({url:window.location.href}).then(function(result){
+      ScanAPI.ScanSignature().then(function(result){
         console.log(result);
         wx.config({
           debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -51,7 +51,7 @@
           console.log(111);
             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
             wx.scanQRCode({
-            needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+            needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
             scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
             success: function (res) {
             // var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
@@ -209,5 +209,6 @@
     $scope.SaveCollectInfo=SaveCollectInfo;
     $scope.ScanData=ScanData;
     $scope.Takephoto=Takephoto;
+    $scope.GainSignature=GainSignature;
   }
 })();

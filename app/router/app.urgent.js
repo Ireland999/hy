@@ -20,7 +20,7 @@
     url:'/wei_list',
     templateUrl:'/views/MyPro/wei_list.html'
     }).state('greet',{                 //打招呼定位附近终端
-      url:'/',
+      url:'/greet',
       templateUrl:'views/visit/greet.html'
     }).state('termnialDetial',{                 //打招呼 确定终端
       url:'/termnialDetial/{Termnial_id}',
@@ -31,6 +31,9 @@
     }).state('pointout',{                 //提示页面
       url:'/pointout',
       templateUrl:'views/pointout.html'
+    }).state('test',{                 //提示页面
+      url:'/',
+      templateUrl:'views/ComPro/TestScan.html'
     }).state('position',{                 //定位确定终端
       url:'/position',
       templateUrl:'views/visit/position.html'

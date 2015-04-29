@@ -1,6 +1,6 @@
 (function(){
   angular.module('app').service("PositionAPI",PositionAPI);
-  PositionAPI.$inject=['$http','$q'];
+ PositionAPI.$inject=['$http','$q'];
   function PositionAPI($http,$q){
     //获取附近终端
     this.GetTemList=function(obj){
@@ -39,10 +39,13 @@
       return deferred.promise;
     },
     //获取session中的终端
-    this.GetTermnial=function(){
-      var deferred=$q.defer();
+    this.getTermnial=function(){
+      console.log(1);
+    var deferred=$q.defer();
+    console.log(11);
       $http.post('api/getsession')
       .success(function(result){
+        console.log(result);
         deferred.resolve(result);
       })
       .error(function(result){
