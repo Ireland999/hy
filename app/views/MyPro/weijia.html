@@ -1,0 +1,38 @@
+<div ng-controller="LogInfoController" ng-init="myPro()">
+  <div class="panel weijia">
+     <div class="col-md-12 col-sm-12 col-xs-12 DrugstoreName">
+      <span>{{Termnial_name}}</span>
+     </div>
+    <!-- <div class="wopin">
+        <span class="sa"><a href="#"><img src="../assets/img/sao.png" ng-click=""></a></span>
+        <span class="sa p">扫描我品</span>
+    </div> -->
+    <div class="jiben">
+      <div>
+          <form>
+            <label class="control-label nam">药品名称：<span class="nam">朴雪乳酸亚铁口服液{{}}</span></label><br>
+            <label class="control-label">规&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格：<span>10ml*10支{{}}</span></label><br>
+            <label class="control-label">终端预计存量：<span>8{{}}</span></label><br>
+            <label class="control-label"><span class="shiji">终端实际存量：</span><input id="TerminalStock" type="number"></label><br>
+          </form>
+      </div>
+    </div>
+    <div class="foo">
+       <div class="shuoming">
+        <p class="shoujia">全国统一零售价：{{"17.6元/盒"}}</p>
+        <p class="shoujia"> 省区零售价：{{"17元/盒"}}</p>
+        <p class="shou">终端零售价：<input id="TerminalSalePrice"type="number">元/盒 </p>
+       </div>
+    </div>
+    <div   class="Activitydiv">
+        <textarea placeholder="维价说明" id="Activity"></textarea>
+    </div>
+    <div class="collecting">
+       <img class="imgsrc" ng-src="{{Clist[0].pics[0].pic1}}"/>{{images}}
+       <img class="uploadimg" src="../assets/img/287159_21.jpg" ng-click="Takephoto()"/>
+    </div>
+    <div class="btnstyle">
+        <button class="btn savebutton"  ng-click="SaveCollectMyPro()">保存</button>
+    </div>
+  </div>
+</div>

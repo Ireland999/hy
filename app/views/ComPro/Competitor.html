@@ -1,0 +1,67 @@
+<div ng-controller="ScanController" ng-init="ScanData()">
+    <div class="panel">
+      <div class="col-md-12 col-sm-12 col-xs-12 DrugstoreName">
+        <span>{{Termnial_name}}</span>
+      </div>
+      <div class="panel-body">
+        <!-- <div>
+          <span><a href="#"><img src="../assets/img/sao.png" ng-click=""></span></a>
+          <span class="p">扫描竞品商标条码</span>
+        </div> -->
+        <div class="get">
+          <form>
+            <label class="control-label">药品名称：<span class="nam">{{competitorInfo.comp_name}}</span></label><br>
+            <label class="control-label">药品规格：<span>{{competitorInfo.comp_spec}}</span></label><br/>
+            <label class="control-label">生产厂商：<span class="nam2">{{competitorInfo.comp_manufacturer}}</span></label>
+          </form>
+        </div>
+        <br>
+        {{resultstr}}
+        <div class="get2">
+          终端零售价：
+          <input class="in1" type="number" ng-model="saleprice">
+          终端进货价：
+            <input class="in1" type="number" ng-model="buyprice">
+            剂&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：
+          <select class="in1 pill" >
+              <option value="1" select="selected" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;散装</option>
+              <option value="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片剂</option>
+              <option value="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;颗粒剂</option>
+              <option value="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;胶囊剂</option>
+              <option value="5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;溶液剂</option>
+              <option value="6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;乳液剂</option>
+              <option value="7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;混悬剂</option>
+            </select>
+          月&nbsp;&nbsp;&nbsp;销&nbsp;&nbsp;&nbsp;量：
+            <input class="in1" type="number" ng-model="monthsale">
+            是&nbsp;否&nbsp;首&nbsp;推：
+            <select  class="in1 istop" >
+              <option selected = "selected" value="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是</option>
+              <option value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;否</option>
+            </select>
+          操&nbsp;作&nbsp;方&nbsp;式：
+            <select type="text" class="in1 isAgent" >
+              <option selected = "selected" value="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;代理</option>
+              <option value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;维护</option>
+            </select>
+            业&nbsp;务&nbsp;人&nbsp;员：
+          <input class="in1" type="text" ng-model="operator">
+          电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：
+          <input class="in1" type="tel" ng-model="number">
+        </div>
+      </div>
+    </div>
+     <div   class="Policydiv">
+        <textarea placeholder="政策信息" id="Policy"></textarea>
+      </div>
+      <div   class="Activitydiv">
+        <textarea placeholder="活动描述" id="Activity"></textarea>
+      </div>
+      <div class="collecting">
+       <img ng-src="{{Clist[0].pics[0].pic1}}"/>{{images}}
+       <img class="uploadimg" src="../assets/img/287159_21.jpg" ng-click="Takephoto()"/>
+      </div>
+    <div class="btnstyle">
+      <button id="savebutton"class="btn savebutton" ng-click="SaveCollectInfo()">保存</button>
+    </div>
+</div>

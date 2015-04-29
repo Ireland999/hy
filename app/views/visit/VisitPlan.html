@@ -1,0 +1,16 @@
+<div class="visitplan"ng-controller="VisitPlanController" ng-init="VisitPlanLoad()">
+
+  <img src="/images/logo.png">
+  <div class="plan">
+      <span class="time">
+          计划时间:
+      </span>
+      <div class="dapicker">
+        <input id="datepicker" type="text" data-ng-datepicker data-ng-options="datepickerOptions" data-ng-model="date">
+      </div>
+      <div class="plancontent">
+        <textarea id="textarea" cols="31" placeholder="计划主要内容"></textarea>
+      </div>
+    <button class="form-control btn btn-danger" ng-click="SaveFunction()">保存</button>
+  </div>  
+</div>

@@ -1,0 +1,34 @@
+<div ng-controller="SearchResolvedController" ng-init="SearchResolvedLoad()">
+  <div  class="col-md-12 col-sm-12 col-xs-12 count">
+        <p class="pull-right">共计:{{items[1].ListCount}}条</p>
+    </div>
+    <div class="searchcontent" ng-repeat="item in items">
+        <div class="row row1">
+            <div class="col-md-6 col-sm-6 col-xs-7" >
+              <span class="pull-left">{{item.IssuedName}}</span>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-5">
+              <span class="pull-right">{{item.timestamp}}</span>
+            </div>
+        </div>
+        <div class="row row2">
+          <div class="col-md-11 col-sm-11 workcontent" >
+            <p>
+              {{item.IssuedContent.substr(0,37)}}
+              <span class="getmore"ng-show="{{flag==true}}">{{item.IssuedContent.substr(37)}}</span>
+              <span ng-class="'{{item.len}}'>'37'?'ng-hide showall':'showall'"ng-click="ShowAll(item.IssuedId)">阅读全文</span>
+            </p>
+          </div>
+          <div class="col-md-1 col-sm-1  arrow">
+              <a ui-sref="Comproducts({IssuedId:item.IssuedId})"class="glyphicon glyphicon-menu-right arrowPosition "></a> 
+          </div>
+          <a class="btn btn-small btn-success">已处理
+          </a>
+        </div> 
+    </div>
+    <div id="nomore"></div>
+    <div class="loadmore" ng-click="LoadMore(items[1].ListCount)">
+      更多...1213
+    </div>
+</div> 
+    

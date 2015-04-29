@@ -4,6 +4,7 @@
   function greetController($scope,$location,GreetAPI,ScanAPI,UserAPI){
      //修改按钮里面的显示值  保存/修改
      var state=true;
+      document.title="选择终端";
     var load=function(){
       $scope.Slist=[{
         Termnial_id:'A',
@@ -12,19 +13,19 @@
         contact:'黄经理',
         phone:'(0451)84614143',
       },{
-        Termnial_id:2,
+        Termnial_id:'A',
         name:'人民同泰药店',
         address:'南岗区贵新街53号',
         contact:'李经理',
         phone:'(0451)86208272',
       },{
-        Termnial_id:3,
+        Termnial_id:'B',
         name:'龙威大药房民生店',
         address:'民生路26民香小区',
         contact:'张经理',
         phone:'(0451)55622289',
       },{
-        Termnial_id:4,
+        Termnial_id:'C',
         name:'杰威大药房',
         address:'南苑路25号',
         contact:'周经理',
@@ -35,11 +36,11 @@
       $scope.href=window.location.href;
       // console.log(window.location.href.substr(0,24));
       if(!sessionStorage.userId||sessionStorage.userId==undefined){
-        console.log(search.split('?')[0]);
+        console.log(search.split('?')[1]);
         //获取用户userId
-        UserAPI.getUserId(search.split('?')[0]).then(function(result){
+        UserAPI.getUserId(search.split('?')[1]).then(function(result){
           console.log(result);
-          $socpe.UserId=result.UserId;
+          $scope.UserId=result.UserId;
           //将用户id存到session中
           sessionStorage.UserId=result.UserId;
            //根据用户和当前地理位置查询附近终端
@@ -51,8 +52,8 @@
     };
     //拍照  店铺门头照片
     var ScanSignature=function(){
-      //去后台请求拿到签名
-      ScanAPI.ScanSignature({url:window.location.href}).then(function(res){
+     
+      ScanAPI.ScanSignature().then(function(res){
         console.log(res);
          wx.config({
               debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -65,12 +66,31 @@
            wx.ready(function(){
             console.log(111);
               // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-              takephoto();
+              $scope.imgList=[];
+              wx.chooseImage({
+                  success: function (res) {
+                      var localIds=res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                      if(localIds.length>3)return alert('选择图片不能多于三张');
+                      $scope.localIds=localIds;
+                      angular.forEach(localIds,function(localId){
+                        wx.uploadImage({
+                            localId:localId, // 需要上传的图片的本地ID，由chooseImage接口获得
+                            isShowProgressTips: 1, // 默认为1，显示进度提示
+                            success: function (res) {
+                               var serverId= res.serverId; // 返回图片的服务器端ID
+                               $scope.imgList.push(serverId);
+                            }
+                        });
+                      });
+                      
+                  }
+              });
           });
       });
     };
 //点击拍照或者上传图片
     var takephoto=function(){
+      console.log(33);
       $scope.imgList=[];
       wx.chooseImage({
           success: function (res) {
@@ -100,7 +120,8 @@
           $scope.Termnial_id=radio[i].value;
             for(var j=0;j<$scope.Slist.length;j++){
               if(radio[i].value==$scope.Slist[j].Termnial_id){
-                document.getElementById('termnailname').innerHTML='终端名称：'+$scope.Slist[j].name;
+                document.getElementById('termnailname').innerHTML=$scope.Slist[j].name;
+                $scope.Termnial_name=$scope.Slist[j].name;
                 break;
               }
             }
@@ -118,12 +139,13 @@
       if(obj.Termnial_id==undefined)return Prompt("你还没有选择终端","red");
       // $location.path('position');//页面跳转
       //图片
-      obj.serverIds=$scope.imgList;
+      // obj.serverIds=$scope.imgList;
       if(state==true){
-          GreetAPI.chooseTermnial(obj).then(function(result){
-            console.log(result);
+        //选择终端拍药店门头
+          // GreetAPI.chooseTermnial(obj).then(function(result){
+          //   console.log(result);
             //保存失败直接返回
-            if(result[0]==false)return;
+            // if(result[0]==false)return;
             //背景div 
               sWidth = document.body.offsetWidth;    
               sHeight = document.body.offsetHeight;   
@@ -143,7 +165,10 @@
               $(savebutton).addClass("btnDefault").removeClass("savebutton");
               var btnstyle=document.getElementsByClassName('btnstyle');
               state=false;
-          });
+              sessionStorage.Termnial_id=obj.Termnial_id;
+              sessionStorage.Termnial_name=$scope.Termnial_name;
+              console.log(sessionStorage.Termnial_id);
+          // });
       }else{
        savebutton.innerHTML="保存";
         $(savebutton).addClass("savebutton").removeClass("btnDefault");
@@ -151,17 +176,9 @@
         $("#alertbgDiv").remove();
       }
     };
-    var test=function(){
-      $scope.testlist=[];
-      var testdata=['1','2','3','4'];
-      angular.forEach(testdata,function(data){
-        $scope.testlist.push(data);
-      })
-    };
     $scope.load=load;
     $scope.radiochoose=radiochoose;
     $scope.ScanSignature=ScanSignature;
     $scope.save=save;
-    $scope.test=test;
 }
 })();

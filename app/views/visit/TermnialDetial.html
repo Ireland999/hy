@@ -1,0 +1,23 @@
+<div class="TernimalDetial" ng-controller="TermnialDetialController" ng-init="DetialLoad()">
+    <div class="header">
+      <div class="Manual">
+        <p class="imgs">{{list.Termnial_id}}</p>
+            <!-- <img class="imgs" src="../assets/img/redmarke.png"> -->
+        <p id="Manualtermnialname"class="Manualcontent ">{{list.name}}</p>
+        <p class="Manualcontent">地址:{{list.address}}</p>
+        <p class="Manualcontent">联系人:{{list.contact}}</p>
+        <p class="Manualcontent">联系电话:{{list.phone}}</p>
+      </div>
+      <div id="addTag">
+      </div>
+      <div id="isRemind">
+    </div>
+
+  </div>
+  <div class="footer ">
+    <div id="takephoto"></div>
+    <div class="btnstyle">
+        <button id="savebutton" class="btn savebutton" ng-click="save()">保存</button>
+    </div>
+  </div>
+</div>

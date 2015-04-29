@@ -3,8 +3,9 @@
   ScanAPI.$inject=['$http','$q'];
   function ScanAPI($http,$q){
     //获取签名
-    this.ScanSignature=function(obj){
+    this.ScanSignature=function(){
       var deferred=$q.defer();
+      //拿到签名调用微信jssdk api/sign
       $http.post('api/sign',{url:window.location.href})
       .success(function(result){
         deferred.resolve(result);

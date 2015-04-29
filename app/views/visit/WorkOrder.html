@@ -1,0 +1,49 @@
+
+<div class="WorkList" ng-controller="WorkOrderController" ng-init="WorkOrderLoad()">
+    <div class="togglep">
+    <p>
+      <toggle-switch
+        ng-model="switchStatus"
+        on-label="计划"  
+        off-label="待办" class="toggle" ng-click="switchFunction(0,switchStatus)">
+      <toggle-switch>
+    </p>
+    <p class="glyphicon glyphicon-th-list listlist " data-toggle="dropdown" aria-expanded="false"></p>
+    <ul class="dropdown-menu  listmenu">
+        <li >
+          <a ui-sref="WorkOrder.WorkPending"ng-click="switchFunction(0,switchStatus || false)">
+            <span class="glyphicon glyphicon-bell"></span>
+            待处理
+          </a>
+        </li>
+        <li>
+          <a ui-sref="WorkOrder.WorkResolve"ng-click="switchFunction(1,switchStatus || false) ">
+            <span class="glyphicon glyphicon-flag"></span>
+            已处理
+          </a>
+        </li>
+      </ul>
+    </div>
+  <div ui-view class="listviews">
+    <div  class=" count count1">
+      <p class="pull-right">共计:{{Orders[0].ListCount}}条</p>
+    </div>
+    <div ng-repeat="item in Orders[1]">
+        <div class="row row2 wroklistcontent">
+          <div class="col-md-11 col-sm-11 col-xs-12" >
+            <p>
+              {{item.IssuedContent.substr(0,37)}}
+              <span class="getmore"ng-show="{{flag==true}}">{{item.IssuedContent.substr(37)}}</span>
+            </p>
+          </div>
+           <a class="btn  btn-small btn-danger" >待处理
+           </a>
+           <span class="showall worklistshow"ng-click="ShowAll(item.IssuedId)">阅读全文</span>
+        </div> 
+    </div>
+  </div>
+  <div id="nomore"></div>
+  <div class="loadmore" ng-click="LoadMore(items[1].ListCount)">
+    更多...
+  </div>
+</div>

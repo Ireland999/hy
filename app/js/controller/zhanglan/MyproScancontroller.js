@@ -10,10 +10,19 @@
         UserAPI.getUserId(search.split('?')[0]).then(function(result){
           //返回终端
           console.log(result);
-          if(result[0]==false)return;
+          // if(result[0]==false)return;
+          if(sessionStorage.Termnial_name==undefined || !sessionStorage.Termnial_name)return Prompt("你还没有进行终端定位","red");
+          // if(result[0]==false)return Prompt("你还没有进行终端定位","red");
+          $("#alertbgDiv").remove();
+          //终端名称
+          $scope.Termnial_name=sessionStorage.Termnial_name;
           //微信扫一扫
           GainSignature();
         });
+      }else{
+         $("#alertbgDiv").remove();
+          //微信扫一扫
+          GainSignature();
       }
     };
     //去后台请求拿到签名

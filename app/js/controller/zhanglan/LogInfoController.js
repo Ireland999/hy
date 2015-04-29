@@ -2,36 +2,35 @@
   angular.module('app').controller("LogInfoController",LogInfoController);
   LogInfoController.$inject=['$scope','MyProAPI','$stateParams','UserAPI'];
   function LogInfoController($scope,MyProAPI,$stateParams,UserAPI){
+    //判断是否可以编辑文本框内内容
+    var state=true;
     //初始化函数
     var LogInfoLoad=function(){
-      //加载人员信息
-      var search=location.hash;
-      if(!sessionStorage.userId||sessionStorage.userId==undefined){
-        UserAPI.getUserId(search.split('?')[0]).then(function(result){
-          //返回终端
-          console.log(result);
-          if(result[0]==false)return Prompt("你还没有选择终端","red");
+       //终端名称
+          $scope.Termnial_name=sessionStorage.Termnial_name;
+          $scope.Termnial_id=sessionStorage.Termnial_id;
+          $scope.UserId=sessionStorage.UserId;
           LogInfo();
-        });
-      } 
     };
      //通过扫码获取我品信息并判断是否串货
     var LogInfo=function(){
       console.log(sessionStorage.MyProCode);
+      $scope.MyProCode=sessionStorage.MyProCode;
       MyProAPI.GetMyPro({myprocode:sessionStorage.MyProCode}).then(function(result){
         console.log(result);
       });               
     };
     //点击信息维护按钮跳转页面并加载数据对我品信息进行加载
     var myPro=function(){
-      var obj={};
-      obj.myProCode=$stateParams.MyProId;
-      MyProAPI.GetMyProInfo(obj).then(function(result){
+      $scope.Termnial_name=sessionStorage.Termnial_name;
+      // 传递我品编码
+      MyProAPI.GetMyProInfo({myProCode:$stateParams.MyProId}).then(function(result){
         console.log(result);
       });
     };
     //对采集的终端实际存量和终端零售价信息进行保存
     var SaveCollectMyPro=function(){
+      var obj={};
       var TerminalStock=document.getElementById('TerminalStock');
       var TerminalSalePrice=document.getElementById('TerminalSalePrice');
       var Activity=document.getElementById('Activity');
@@ -48,12 +47,42 @@
       //我品id
       obj.myp_id=sessionStorage.MyProCode;
       //终端id
-      obj.terminal_id=sessionStorage.terminal_id;
+      obj.terminal_id=sessionStorage.Termnial_id;
       //操作人id
-      obj.manager_id=sessionStorage.manager_id;
-      MyProAPI.SaveCollectMyPro(obj).then(function(result){
-        console.log(result);
-      });
+      obj.manager_id=sessionStorage.UserId;
+      if(state==true){
+          MyProAPI.SaveCollectMyPro(obj).then(function(result){
+            console.log(result);
+            //保存成功之后将保存按钮变成修改并把内容变成不可编辑状态
+                    if(result[0]==true){
+                        //背景div 
+                        sWidth = document.body.offsetWidth;    
+                        sHeight = document.body.offsetHeight;   
+                        var bgObj=document.createElement("div");    
+                        bgObj.setAttribute('id','alertbgDiv');    
+                        bgObj.style.position="absolute";    
+                        bgObj.style.top="0";    
+                        bgObj.style.background="silver";    
+                        bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=90,finishOpacity=95";    
+                        bgObj.style.opacity="0.3";    
+                        bgObj.style.left="0";    
+                        bgObj.style.width = sWidth + "px";    
+                        bgObj.style.height = (sHeight-30) + "px";    
+                        bgObj.style.zIndex = "10000";    
+                        document.body.appendChild(bgObj);    
+                        savebutton.innerHTML="修改";
+                        $(savebutton).addClass("btnDefault").removeClass("savebutton");
+                        var btnstyle=document.getElementsByClassName('btnstyle');
+                        state=false;
+                    }
+          });
+      }else{
+        savebutton.innerHTML="保存";
+        $(savebutton).addClass("savebutton").removeClass("btnDefault");
+        state=true;
+        $("#alertbgDiv").remove();
+      }
+      
     };
     //拍照维价
     var Takephoto=function(){

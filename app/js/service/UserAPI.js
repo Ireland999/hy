@@ -4,8 +4,8 @@
   function UserAPI($http,$q){
     this.getUserId=function(obj){
       var deferred=$q.defer();
-      //通过code值拿到人员信息
-      $http.post('api/getUserId',obj)
+      //通过code值拿到人员信息 api/getUserId?
+      $http.get('api/getUserId?'+obj)
       .success(function(result){
         deferred.resolve(result);
       })

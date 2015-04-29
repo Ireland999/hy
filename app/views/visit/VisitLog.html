@@ -1,0 +1,29 @@
+<div class="visitlog" ng-controller="VisitLogController" ng-init="VisitLogLoad()">
+  <div class="visitTerminal">
+    拜访终端:<span>{{visitItems[0].Terminal}}</span>
+  </div>
+   <div class="Special">
+    专项调研:<span>{{visitItems[0].Special}}</span>
+  </div>
+   <div class="Found">
+    发现
+    <ul>
+      <li class="NewPro">新&nbsp;竞&nbsp;品:<span>{{visitItems[0].NewPro}}</span>条</li>
+      <li class="ComActive">竞品异动:<span>{{visitItems[0].ComActive}}</span>条</li>
+    </ul>
+  </div>
+  <div class="Complete">
+    完成
+    <ul>
+      <li class="Pending">待办任务:<span>{{visitItems[0].Pending}}</span>条</li>
+      <li class="Plan">计&nbsp;&nbsp;&nbsp;&nbsp;划:<span>{{visitItems[0].Plan}}</span>条</li>
+    </ul>
+  </div>
+  <div class="plancontent1">
+        <textarea id="textarea" cols="31" placeholder="拜访评论"></textarea>
+  </div>
+  <div class="savecancel">
+    <button class="btn btn1" ng-click="Save()">确认</button>
+    <button class=" btn btn2" ng-click="Cancel()">取消</button>
+  </div>
+</div>

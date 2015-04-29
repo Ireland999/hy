@@ -1,15 +1,21 @@
 (function(){
   angular.module('app').directive('test',Test);
-  Test.$inject=['TestAPI'];
-  function Test(TestAPI){
+  function Test(){
     return {
       template: [
         '<select>',
-          '<option ng-repeat="item in items">{{item}}</option>',
-        '</option>'
+          '<option ng-repeat="item in items">{{item.text}}</option>',
+        '</select>'
       ].join(''),
-      test: TestAPI.test
+       controller: TestDriectiveController
     };
   }
+  TestDriectiveController.$inject=['$scope','TestAPI'];
+  function TestDriectiveController($scope,TestAPI){
+    // TestAPI.test().then(function(result){
+    //   $scope.items=result;
+    // });
+      
+    }
 })();
   

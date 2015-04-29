@@ -9,12 +9,13 @@
     "angular-toggle-switch":"1.2.1",
     "angular-bootstrap-datepicker":"0.3.1",
     "jweixin-bower":"1.0.0",
-    "magicsuggest":"2.1.4"
+    "magicsuggest":"2.1.4",
+    "mobiscroll":"2.15.1"
   },
   "overrides": {
     "marked": "lib/marked.js"
   },
   "proxies": {
-    "/api": "http://192.168.0.113:8080"
+    "/api": "http://192.168.0.132:8080"
   }
 }

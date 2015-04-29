@@ -94,7 +94,7 @@
               }
           }
         page ++;
-        state = false
+        state = false;
     };
     $scope.LoadMore=LoadMore;
     $scope.SearchPendLoad=SearchPendLoad;
