@@ -3,7 +3,10 @@
     <span>{{Termnial_name}}</span>
   </div>
   <div>
-    <button ng-click="GainSignature()">扫一扫</button>
+    <input id="inputid"type="text" ng-model="comp_code" class="inputclass" placeholder="电子监管码" />
   </div>
-  
+  <div>
+    <a class="btn btn-primary collectinfo" ng-click="GainSignature()">扫码</a>
+  </div>
+  <a class="btn btn-primary collectinfo " ng-click="CollectFunction()">确认</a>
 </div>

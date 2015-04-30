@@ -5,7 +5,7 @@
       url:'/scan',
       templateUrl:'views/ComPro/scan.html'
     }).state('appManager',{              //竞品界面
-      url:'/appManager',
+      url:'/appManager/{comp_code}',
        templateUrl:'views/ComPro/Competitor.html'
     }).state('center.addactive',{               //操作竞品异动
       url:'/addactive',
@@ -14,7 +14,7 @@
         url:'/compedetail/{CompId}',   //竞品id
         templateUrl:'/views/ComPro/compedetail.html'
     }).state('weijia',{               //维价页面
-        url:'/weijia/{MyProId}',
+        url:'/weijia/{MyPro_code}',
         templateUrl:'/views/MyPro/weijia.html' 
     }).state('center.wei_list',{               //维价列表页面
     url:'/wei_list',
@@ -54,7 +54,7 @@
       url:'/MyproScan',   //我品扫码---防串稽核  MyproScan
       templateUrl:'views/MyPro/MyproScan.html'
     }).state('MyProScanInfo',{
-      url:'/MyProScanInfo',
+      url:'/MyProScanInfo/{MyPro_code}',
       templateUrl:'views/MyPro/MyProScanInfo.html'//我品扫码成功后的界面
     }).state('WorkOrder',{
       url:'/WorkOrder',

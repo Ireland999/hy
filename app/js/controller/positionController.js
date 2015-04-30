@@ -140,7 +140,7 @@
       PositionAPI.SaveTemInfo(obj).then(function(result){
         console.log(result);
       });
-      Prompt("保存成功","black");
+      Prompt("保存成功","blue");
     };
     // //置空表单
     // var cancel=function(){

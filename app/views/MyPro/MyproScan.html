@@ -2,4 +2,11 @@
    <div class="col-md-12 col-sm-12 col-xs-12 DrugstoreName">
     <span>{{Termnial_name}}</span>
   </div>
+  <div>
+    <input type="text" class="inputclass" placeholder="电子监管码"  ng-model="MyPro_code"/>
+  </div>
+  <div>
+    <a class="btn btn-primary collectinfo" ng-click="GainSignature()">扫码</a>
+  </div>
+  <a class="btn btn-primary collectinfo assure" ng-click="CollectFunction()">确认</a>
 </div>

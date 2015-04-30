@@ -1,11 +1,11 @@
 (function(){
   angular.module('app').controller("ScanController",ScanController);
-  ScanController.$inject=['$scope','$state','ScanAPI','UserAPI','PositionAPI'];
-  function ScanController($scope,$state,ScanAPI,UserAPI,PositionAPI){
+  ScanController.$inject=['$scope','$state','ScanAPI','UserAPI','PositionAPI','$stateParams'];
+  function ScanController($scope,$state,ScanAPI,UserAPI,PositionAPI,$stateParams){
     //判断是否可以编辑文本框内内容
     var state=true;
     var ScanLoad=function(){
-      $("#alertbgDiv").remove();
+      $("#alertbgDiv1").remove();
      // //加载人员信息
       var search=location.hash;
       if(!sessionStorage.userId||sessionStorage.userId==undefined){
@@ -19,8 +19,6 @@
             $scope.res=res;
             if(res.name==""||res.name==null)return Prompt("你还没有进行终端定位","red");
             $scope.Termnial_name=res.name;
-            //微信扫一扫
-            GainSignature();
           });
           
         });
@@ -30,8 +28,6 @@
             
             if($scope.res.name==""||$scope.res.name==null)return Prompt("你还没有进行终端定位","red");
             $scope.Termnial_name=$scope.res.name;
-            //微信扫一扫
-            GainSignature();
           });
       }
     };
@@ -40,7 +36,7 @@
       ScanAPI.ScanSignature().then(function(result){
         console.log(result);
         wx.config({
-          debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
           appId: 'wxb3c27ef068bf7146', // 必填，公众号的唯一标识
           timestamp:result.timestamp, // 必填，生成签名的时间戳
           nonceStr: result.nonceStr, // 必填，生成签名的随机串
@@ -48,29 +44,40 @@
           jsApiList: ['scanQRCode','chooseImage','previewImage','uploadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
       });
          wx.ready(function(){
-          console.log(111);
             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
             wx.scanQRCode({
             needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
             scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
             success: function (res) {
-            // var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-            var resultstr=res.resultstr;
-            sessionStorage.comp_code=resultstr.resultstr.split(',')[1];
-            //跳转到竞品采集界面
-            $state.go('appManager');
-            }
+              var result=res.resultStr;
+             
+              var comp_code=result.split(',')[1];
+             
+              $scope.comp_code = comp_code;
+              }
           });
+            wx.error(function(){
+              $scope.errorstr='微信服务器调用失败';
+            });
         });
       });
     };
+    var CollectFunction=function(){
+      console.log($scope.comp_code);
+      if($scope.comp_code==undefined){
+        Prompt("请先扫码","red");
+        return false;
+      }
+      $state.go('appManager',{comp_code:$scope.comp_code});
+    };
     //请求后台检测是新竞品还是竞品异动并返回药品信息
     var ScanData=function(){
+      document.title="";
       $scope.Termnial_name=sessionStorage.Termnial_name;
       $scope.Termnial_id=sessionStorage.Termnial_id;
       console.log(document.getElementsByClassName('in1'));
-      console.log($scope.selectedsort);
-      ScanAPI.scanVerify({comp_code:sessionStorage.comp_code}).then(function(result){
+      $scope.comp_code=$stateParams.comp_code;
+      ScanAPI.scanVerify({comp_code:$stateParams.comp_code}).then(function(result){
         console.log(result);
         $scope.competitorInfo=result[2].map(function(data){
           return {
@@ -102,16 +109,14 @@
       //药品剂型
       console.log($('.pill option:selected') .val());
       if(state==true){
-        if($scope.tel==undefined||
-              $scope.saleprice==undefined||
-              $scope.buyprice==undefined||
-              $scope.operator==undefined)return Prompt("信息填写不完整，检查后重新提交!","red");
             if(!regMobile.test($scope.tel)){
               alert("手机或者电话有误！");
             }else if(!reg.test($scope.saleprice)){
-              alert('价格不是数字');
+              alert('售价不是数字');
             }else if(!reg.test($scope.buyprice)){
-              alert('价格不是数字');
+              alert('进价不是数字');
+            }else if(!reg.test($scope.monthsale)){
+              alert('月销量不是数字');
             }else{
               //电话
               obj.phone=$scope.tel
@@ -133,13 +138,13 @@
               obj.policyinfo=Policy[0].value;
               //竞品编码
               var competitorInfo=$scope.competitorInfo;
-              obj.comp_code=competitorInfo.comp_code;
-              //竞品名称
-              obj.comp_name=competitorInfo.comp_name;
-              //竞品规格
-              obj.comp_spec=competitorInfo.comp_spec;
-              //竞品生产厂商
-              obj.comp_manufacturer=competitorInfo.comp_manufacturer;
+              // obj.comp_code=competitorInfo.comp_code;
+              // //竞品名称
+              // obj.comp_name=competitorInfo.comp_name;
+              // //竞品规格
+              // obj.comp_spec=competitorInfo.comp_spec;
+              // //竞品生产厂商
+              // obj.comp_manufacturer=competitorInfo.comp_manufacturer;
               //采集人员id
               obj.manager_id='1';
               //省区id
@@ -147,15 +152,15 @@
               //终端id
               obj.terminal_id=sessionStorage.Termnial_id;
               console.log(obj);
-              ScanAPI.saveCollectInfo(obj).then(function(result){
-                console.log(result);
+              // ScanAPI.saveCollectInfo(obj).then(function(result){
+              //   console.log(result);
                 //保存成功之后将保存按钮变成修改并把内容变成不可编辑状态
-                if(result[0]==true){
+                // if(result[0]==true){
                     //背景div 
                     sWidth = document.body.offsetWidth;    
                     sHeight = document.body.offsetHeight;   
                     var bgObj=document.createElement("div");    
-                    bgObj.setAttribute('id','alertbgDiv');    
+                    bgObj.setAttribute('id','alertbgDiv1');    
                     bgObj.style.position="absolute";    
                     bgObj.style.top="0";    
                     bgObj.style.background="silver";    
@@ -170,15 +175,15 @@
                     $(savebutton).addClass("btnDefault").removeClass("savebutton");
                     var btnstyle=document.getElementsByClassName('btnstyle');
                     state=false;
-                }
-              });
+              //   }
+              // });
             }
         
       }else{
         savebutton.innerHTML="保存";
         $(savebutton).addClass("savebutton").removeClass("btnDefault");
         state=true;
-        $("#alertbgDiv").remove();
+        $("#alertbgDiv1").remove();
       }
     };
     //拍照
@@ -210,5 +215,6 @@
     $scope.ScanData=ScanData;
     $scope.Takephoto=Takephoto;
     $scope.GainSignature=GainSignature;
+    $scope.CollectFunction=CollectFunction;
   }
 })();
