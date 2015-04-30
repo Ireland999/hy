@@ -54,6 +54,7 @@
               var comp_code=result.split(',')[1];
              
               $scope.comp_code = comp_code;
+              document.getElementById('inputid')[0].value=comp_code;
               }
           });
             wx.error(function(){

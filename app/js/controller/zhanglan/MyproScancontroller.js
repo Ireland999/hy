@@ -49,6 +49,7 @@
             // var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
             var resultstr=res.resultStr;
             $scope.MyPro_code=resultstr.split(',')[1];
+            document.getElementById('inputid')[0].value=comp_code;
             }
           });
         });
